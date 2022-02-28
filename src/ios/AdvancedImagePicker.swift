@@ -94,6 +94,7 @@ import YPImagePicker
         }
 
         let picker = YPImagePicker(configuration: config);
+        let webViewFrame = self.webView.frame;
 
         if #available(iOS 15.0, *) {
             let navBarAppearance = UINavigationBarAppearance()
@@ -107,7 +108,9 @@ import YPImagePicker
             } else if(items.count > 0) {
                 self.handleResult(items: items, asBase64: asBase64, asJpeg: asJpeg);
             }
-            picker.dismiss(animated: true, completion: nil);
+            picker.dismiss(animated: true) {
+                self.webView.frame = webViewFrame;
+            };
         }
 
         self.viewController.present(picker, animated: true, completion: nil);
